@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Auth from "~/components/Auth";
 import Card from "~/components/ui/Card";
 import Selector from "~/stories/Selector";
-import useOngoingTournament from "~/hooks/useOngoingTournament";
 import Actionables from "~/components/Actionables";
+import { TournamentContext } from "context";
 import useCurrentlyActiveUsers from "~/hooks/useCurrentlyActiveUsers";
 
 export default function Home() {
   // console.log('active usersssss', activeUsers());
-  const { tournament } = useOngoingTournament(); // get ongoing tournament
+  const { tournament } = useContext(TournamentContext);
   const activeUsers = useCurrentlyActiveUsers();
 
   console.log('ongoing tournament', tournament);

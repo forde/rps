@@ -3,12 +3,10 @@ import { useEffect, useState, useContext } from 'react'
 import { collection, doc, addDoc, onSnapshot, orderBy, getDocs, setDoc, serverTimestamp, query, where, limit } from 'firebase/firestore'
 import { firestore, getAllUsers } from '~/firebase'
 
-export default function useOngoingTournament() {
+export default function useOngoingTournament({ user } = {}) {
 
     const [ tournament, setTournament ] = useState(null)
     const [ game, setGame ] = useState(null)
-
-    const { user } = useContext(UserContext)
 
     useEffect(() => {
 
@@ -29,8 +27,17 @@ export default function useOngoingTournament() {
     }, [])
 
     useEffect(() => {
+        if(!user || !tournament) return
 
+        const latestRound = last(tournament.rounds)
+
+        if(latestRound && latestRound.ongoing && latestRound.games) {
+            const usersGame = latestRound.games.filter(game => game.players.map(p => p.id).includes(user.uid))[0]
+            setGame(usersGame)
+        }
     }, [tournament])
+
+    const last = array => array[array.length - 1]
 
     const pair = (_items, _fill={})  => {
 
