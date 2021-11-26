@@ -1,32 +1,38 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import Auth from "~/components/Auth";
 import Card from "~/components/ui/Card";
 import Selector from "~/stories/Selector";
 import Actionables from "~/components/Actionables";
 import { TournamentContext } from "context";
 import useCurrentlyActiveUsers from "~/hooks/useCurrentlyActiveUsers";
+import TournamentVisual from '~/components/TournamentVisual';
 
 export default function Home() {
-  // console.log('active usersssss', activeUsers());
-  const { tournament, game, canChoose } = useContext(TournamentContext);
-  const activeUsers = useCurrentlyActiveUsers();
-
-  console.log('ongoing tournament', tournament, 'game', game, 'can choose', canChoose);
-  return (
-    <section>
-      <Auth />
-      <Card className='bg-green-100 container'>
-        Players currently in lobby: {activeUsers.length}
-        <ul>
-          {activeUsers.map(({ displayName }, i) => {
-            return <li key={i}>{displayName}</li>;
-          })}
-        </ul>
-      </Card>
-      <div className='container'>
-        <Selector />
-      </div>
-      <Actionables />
-    </section>
-  );
+	const { tournament, game, canChoose } = useContext(TournamentContext);
+	const activeUsers = useCurrentlyActiveUsers();
+	const tournamentStarted = tournament?.ongoing;
+	return (
+		<section>
+			{!tournamentStarted &&
+				<>
+					<Auth />
+					<Card className='bg-green-100 container'>
+						Players currently in lobby: {activeUsers.length}
+						<ul>
+							{activeUsers.map(({ displayName }, i) => {
+							return <li key={i}>{displayName}</li>;
+							})}
+						</ul>
+					</Card>
+				</>
+			}
+			{tournamentStarted &&
+				<div className='container'>
+					<TournamentVisual tournament={tournament} />
+					<Selector />
+				</div>
+			}
+			{!tournamentStarted && <Actionables />}
+		</section>
+	);
 }
