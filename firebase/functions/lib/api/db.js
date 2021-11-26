@@ -1,8 +1,8 @@
 const firebase = require("../firebase");
 
-async function createGame() {
+const createGame = async () => {
 
-  const players = await firebase.firestore.collection("users")
+  const players = await firebase().firestoreAdmin().collection("users")
     .where('active', '==', true)
     .get();
 

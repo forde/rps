@@ -1,13 +1,11 @@
 //import * as functions from 'firebase-functions'
 const admin = require('firebase-admin');
-const app = require('firebase/app')
-
-// You say you support modular js, but nope.
-
+const app = require('firebase/app');
 const serviceAccount = require('../service-account.json');
+// Y U NO SUPPORT MODULAR JS GOOGLE.
 
-//const adminConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 // I am convinced firebase hates me, what is this new requirement, no uppercase in env, when it is explicitly uppercase.
+//const adminConfig = JSON.parse(process.env.FIREBASE_CONFIG);
 const firebaseConfig = {
     apiKey: "AIzaSyBsoLePJhAF_g3uNEjAM97G6u6s72yhh44",
     authDomain: "hackathon-rps.firebaseapp.com",
@@ -21,7 +19,6 @@ const firebaseConfig = {
 
 admin.initializeApp(firebaseConfig);
 
-const firestore = admin.firestore();
-
-//const firebase = admin.database();
-//export { firebase }
+const initializedApp = app.initializeApp(firebaseConfig);
+const firestore = initializedApp.firestore;
+const firestoreAdmin = admin.firestore;
