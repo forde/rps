@@ -1,29 +1,30 @@
-import { useEffect, useState, useContext } from 'react';
-import Auth from '~/components/Auth'
-import Actionables from '~/components/Actionables'
-import useCurrentlyActiveUsers from '~/hooks/useCurrentlyActiveUsers'
-import { TournamentContext } from 'context'
+import { useEffect, useState } from "react";
+import Auth from "~/components/Auth";
+import Card from "~/components/ui/Card";
+import Selector from "~/stories/Selector";
+import useOngoingTournament from "~/hooks/useOngoingTournament";
+import Actionables from "~/components/Actionables";
+import useCurrentlyActiveUsers from "~/hooks/useCurrentlyActiveUsers";
 
-export default function Home () {
-	// console.log('active usersssss', activeUsers());
-	const activeUsers = useCurrentlyActiveUsers();
-
-	const { tournament } = useContext(TournamentContext)
-
-	console.log('Ongoing tournament: ', tournament);
-
-    return (
-        <>
-            <Auth/>
-			<div>
-				Players currently in lobby: {activeUsers.length}
-				<ul>
-				{activeUsers.map(({ displayName }, i) => {
-					return <li key={i}>{displayName}</li>
-				})}
-				</ul>
-			</div>
-			<Actionables />
-        </>
-    )
+export default function Home() {
+  // console.log('active usersssss', activeUsers());
+  const { tournament } = useOngoingTournament(); // get ongoing tournament
+  const activeUsers = useCurrentlyActiveUsers();
+  return (
+    <section>
+      <Auth />
+      <Card className='bg-green-100 container'>
+        Players currently in lobby: {activeUsers.length}
+        <ul>
+          {activeUsers.map(({ displayName }, i) => {
+            return <li key={i}>{displayName}</li>;
+          })}
+        </ul>
+      </Card>
+      <div className='container'>
+        <Selector />
+      </div>
+      <Actionables />
+    </section>
+  );
 }

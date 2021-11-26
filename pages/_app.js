@@ -1,11 +1,12 @@
-import { UserContext, TournamentContext } from '~/context'
-import { useUserData } from '~/hooks'
-import Head from 'next/head'
+import { UserContext, TournamentContext } from "~/context";
+import Head from "next/head";
 import useOngoingTournament from '~/hooks/useOngoingTournament'
+import { useUserData } from '~/hooks'
 
-import styles from '~/styles'
+import styles from "~/styles";
+import globals from "~/globals.css";
 
-function App ({ Component, pageProps }) {
+function App({ Component, pageProps }) {
 
     const userData = useUserData()
 
@@ -26,4 +27,4 @@ function App ({ Component, pageProps }) {
     )
 }
 
-export default App
+export default App;

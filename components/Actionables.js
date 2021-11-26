@@ -1,33 +1,31 @@
-import { UserContext, TournamentContext } from 'context'
-import { useContext } from 'react'
-import { changeUserDoc } from '~/firebase'
+import { UserContext } from "context";
+import { useContext } from "react";
+import { changeUserDoc } from "~/firebase";
 
-export default function Actionables(){
+export default function Actionables() {
+  const { user } = useContext(UserContext);
 
-	const { user } = useContext(UserContext);
+  const handleSetActive = () => {
+    if (!user) return;
+    changeUserDoc(user.uid, { active: true });
+  };
 
-	const { tournament, startTournament } = useContext(TournamentContext)
+  const handleSetInactive = () => {
+    if (!user) return;
+    changeUserDoc(user.uid, { active: false });
+  };
 
-	const handleSetActive = () => {
-		if (!user) return;
-		changeUserDoc(user.uid, { active: true })
-	}
+  const handleStartSession = () => {
+    alert("Start session");
+  };
 
-	const handleSetInactive = () => {
-		if (!user) return;
-		changeUserDoc(user.uid, { active: false })
-	}
-
-	const handleStartSession = () => {
-		console.log('tournament', tournament);
-		startTournament()
-	}
-
-	return(
-		<>
-			<button onClick={handleSetActive}>I AM ACTIVE</button>
-			<button onClick={handleSetInactive}>I AM INACTIVE</button>
-			<button onClick={handleStartSession}>Start game session</button>
-		</>
-	);
+  return (
+    <div className='container'>
+      <div className='bg-red-50 flex flex-col'>
+        <button onClick={handleSetActive}>I AM ACTIVE</button>
+        <button onClick={handleSetInactive}>I AM INACTIVE</button>
+        <button onClick={handleStartSession}>Start game session</button>
+      </div>
+    </div>
+  );
 }
