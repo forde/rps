@@ -22,7 +22,7 @@ export default function TournamentVisual({
 								return !winnerDeclared ? (
 									<li key={i} className="game-wrapper">
 										{game.players.map((player, i) =>
-											<p key={i}> {player.id} chose {player.choice ?? 'nothing yet'}</p>
+											<p key={i}> {player.name} chose {player.choice ?? 'nothing yet'}</p>
 										)}
 									</li>
 								) : (
