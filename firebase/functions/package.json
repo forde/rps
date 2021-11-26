@@ -1,0 +1,25 @@
+{
+  "name": "rps-functions",
+  "scripts": {
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "env": "firebase functions:config:get",
+    "env-set": "firebase functions:config:set",
+    "env-unset": "firebase functions:config:unset"
+  },
+  "engines": {
+    "node": "14"
+  },
+  "main": "./src/index.js",
+  "dependencies": {
+    "firebase-admin": "^9.11.1",
+    "firebase-functions": "^3.15.6"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
