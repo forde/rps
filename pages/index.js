@@ -10,6 +10,8 @@ export default function Home() {
   // console.log('active usersssss', activeUsers());
   const { tournament } = useOngoingTournament(); // get ongoing tournament
   const activeUsers = useCurrentlyActiveUsers();
+
+  console.log('ongoing tournament', tournament);
   return (
     <section>
       <Auth />
