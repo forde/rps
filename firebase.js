@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { getFirestore, collection, doc, onSnapshot, setDoc, getDocs } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
@@ -29,7 +29,7 @@ export const googleAuthProvider = new GoogleAuthProvider()
  * @param  {string} username
  */
 export async function getUserByUsername(username) {
-    const usersRef = firestore.collection('users')
+    const usersRef = collection('users')
     const query = usersRef.where('username', '==', username).limit(1)
     const userDoc = (await query.get()).docs[0]
     return userDoc
@@ -40,11 +40,19 @@ export async function getUserByUsername(username) {
  * @param  {DocumentSnapshot} doc
  */
 export function docToJson(doc) {
-const data = doc.data()
+    const data = doc.data()
     return {
         ...data,
         // Gotcha! firestore timestamp NOT serializable to JSON. Must convert to milliseconds
         createdAt: data.createdAt.toMillis(),
         updatedAt: data.updatedAt.toMillis(),
     }
+}
+
+export async function getAllUsers() {
+    const snapshot = await getDocs(collection(firestore, 'users'))
+    let users = []
+    snapshot.forEach(doc => users.push({ id: doc.id, ...doc.data() }))
+    console.log('users', users);
+    return users
 }
