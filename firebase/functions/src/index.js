@@ -1,1 +1,1 @@
-export { callSomething } from "./triggers/https"
+export { startGame } from "./triggers/https/startGame"
