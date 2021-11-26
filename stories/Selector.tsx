@@ -2,18 +2,22 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { toClassString } from "@utils/formater";
 import { StyleVariantType } from "@/types/styles";
+import R from '../public/R.png';
+import P from '../public/P.png';
+import S from '../public/S.png';
 
 const selectors = ["R", "P", "S"];
+
+const icons = {R, P, S};
 
 export interface SelectorProps {}
 
 export interface SelectorButtonProps {
   icon: "R" | "P" | "S";
-  idx: Number;
   onClick: () => void;
 }
 
-const SelectorButton = ({ icon, idx, onClick, isSelected }) => {
+const SelectorButton = ({ icon, onClick, isSelected }) => {
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => {
     if (isSelected) return null;
@@ -21,8 +25,7 @@ const SelectorButton = ({ icon, idx, onClick, isSelected }) => {
     onClick();
   };
   const bgVariant: string = isActive ? "bg-green-400" : "bg-green-300";
-  const cursorVariant: string = isActive ? "default" : "pointer";
-
+  const cursorVariant: string = isActive ? "default" : "pointer";	  
   return (
     <button
       className={toClassString([
@@ -32,7 +35,7 @@ const SelectorButton = ({ icon, idx, onClick, isSelected }) => {
       onClick={handleClick}
     >
       <Image
-        src={"/stories/assets" + icon + ".png"}
+        src={icons[icon]}
         layout='responsive'
         width={1}
         height={1}
