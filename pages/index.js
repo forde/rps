@@ -11,7 +11,9 @@ import { UserContext } from "~/context";
 import { toClassString } from "utils/formater";
 
 export default function Home() {
-  const { tournament } = useOngoingTournament(); // get ongoing tournament
+  const {
+    tournament,
+  } = /* useOngoingTournament(); // get ongoing tournament */ false;
   const activeUsers = useCurrentlyActiveUsers();
   const { user, displayName, photoURL } = useContext(UserContext);
 

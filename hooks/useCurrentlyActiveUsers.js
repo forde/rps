@@ -10,7 +10,7 @@ const useCurrentlyActiveUsers = () => {
 		const unsub = onSnapshot(q, (qSnap) => {
 			const realtimeActive = [];
 			qSnap.forEach((doc) => {
-				realtimeActive.push(doc.data());
+				realtimeActive.push({ id:doc.id, ...doc.data()});
 			});
 			setActiveUsers(realtimeActive);
 		});
