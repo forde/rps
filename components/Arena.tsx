@@ -7,7 +7,9 @@ function Arena({players, game}) {
     console.log('players', players);
     console.log('game', game);
 
-    
+    if(!game) return null
+
+
     const sortedPlayers = {}
     for (const player of players) {
         sortedPlayers[player.id] = player;
@@ -28,7 +30,7 @@ function Arena({players, game}) {
 }
 
 function Player({player}) {
-    
+
     const imgSrc = player?.photoURL || "https://i.pravatar.cc/150?u=" + Math.random();
     return(
         <div className="flex flex-col flex-1">
