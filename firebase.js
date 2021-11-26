@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore, collection, doc, onSnapshot, setDoc, getDocs } from 'firebase/firestore'
@@ -55,4 +56,11 @@ export async function getAllUsers() {
     snapshot.forEach(doc => users.push({ id: doc.id, ...doc.data() }))
     console.log('users', users);
     return users
+}
+
+export async function changeUserDoc(uid, payload){
+	const usersRef = collection(firestore, 'users');
+	const userDoc = doc(usersRef, uid);
+
+	setDoc(userDoc, payload, { merge: true });		
 }
