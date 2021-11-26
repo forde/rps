@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Auth from '~/components/Auth'
-import useOngoingTournament from '~/hooks/useOngoingTournament'
 import Actionables from '~/components/Actionables'
-import useCurrentlyActiveUsers from '~/hooks/useCurrentlyActiveUsers';
+import useCurrentlyActiveUsers from '~/hooks/useCurrentlyActiveUsers'
+import { TournamentContext } from 'context'
 
 export default function Home () {
 	// console.log('active usersssss', activeUsers());
-    const { tournament } = useOngoingTournament() // get ongoing tournament
 	const activeUsers = useCurrentlyActiveUsers();
+
+	const { tournament } = useContext(TournamentContext)
+
+	console.log('Ongoing tournament: ', tournament);
 
     return (
         <>
