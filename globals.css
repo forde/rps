@@ -2,17 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Outfit&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 /* Global style rules */
+
+body {
+  font-size: 16px;
+  font-family: "Outfit", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5,
+p {
+  font-family: "Lato", sans-serif;
+}
 
 .container {
   width: 100%;
   max-width: 1160px;
-  padding: 0 1rem;
+}
+
+.container__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr 0.33fr) 1fr;
 }
 
 @media (min-width: 768px) {
-  .container {
-    padding: 0 1.5rem;
+  .container__grid {
+    grid-template-columns: repeat(11, 1fr 0.2fr) 1fr;
   }
 }
 

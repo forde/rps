@@ -76,7 +76,7 @@ export default function useOngoingTournament({ user } = {}) {
         const users = await getAllUsers()
         const participants = users
             .filter(u => u.active === true)
-            .map(u => ({ id: u.id, name: u.displayName, photoUrl: u.photoUrl }))
+            .map(u => ({ id: u.id, name: u.displayName, photoUrl: u.photoURL }))
 
         // format games array
         const botAvatar = 'https://assets.wordstream.com/s3fs-public/styles/simple_image/public/images/media/images/facebook-messenger-bots-robot.jpg?e2HI5ngWraq13ZjAOec1O6C6WAw5bHyB&itok=JL3-yeqn'

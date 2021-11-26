@@ -2,6 +2,8 @@ import { UserContext, TournamentContext } from "context";
 import { useContext } from "react";
 import { changeUserDoc } from "~/firebase";
 
+import { toClassString } from "utils/formater";
+
 export default function Actionables() {
 
   const { user } = useContext(UserContext);
@@ -22,13 +24,31 @@ export default function Actionables() {
     startTournament();
   };
 
+  const buttonStyle =
+    "rounded-xl p-2.5 bg-green-800 text-yellow-300 hover:bg-green-600 transition-all duration-200 w-full";
+
   return (
-    <div className='container'>
-      <div className='bg-red-50 flex flex-col'>
-        <button onClick={handleSetActive}>I AM ACTIVE</button>
-        <button onClick={handleSetInactive}>I AM INACTIVE</button>
-        <button onClick={handleStartSession}>Start game session</button>
+    <div>
+      <div className='flex mb-4'>
+        <button
+          onClick={handleSetActive}
+          className={toClassString(["w-full mr-2", buttonStyle])}
+        >
+          I AM ACTIVE
+        </button>
+        <button
+          onClick={handleSetInactive}
+          className={toClassString(["w-full", buttonStyle])}
+        >
+          I AM INACTIVE
+        </button>
       </div>
+      <button
+        onClick={handleStartSession}
+        className={toClassString(["block w-full", buttonStyle])}
+      >
+        Start game session
+      </button>
     </div>
   );
 }

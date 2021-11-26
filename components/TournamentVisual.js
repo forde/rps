@@ -19,7 +19,7 @@ export default function TournamentVisual({
 							{round.games.map((game, i) => {
 								const winnerDeclared = game.winner;
 								return(
-									<Col width={6} key={i} className="game-wrapper">
+									<Col width={12/round.games.length} key={i} className="game-wrapper">
 										<Row className="players">
 											{game.players.map((player, i) =>
 												<Col width={6} key={i} className="player">
