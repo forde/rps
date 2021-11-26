@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
+import { Row, Col } from '~/styles'
+
 export default function TournamentVisual({
 	tournament,
 }){
+
 	return(
 		<TournamentGrid className={`tournament-grid`}>
 			{tournament.rounds.map((round, i) => {
 				return (
-					<div
-						key={i}
-						className="round-wrapper"
-					>
-						<ul
+					<div key={i} className="round-wrapper" >
+						<Row
 							className={`games ${
 								round.ongoing ? 'in-progress' : 'round-completed'
 							}`}
@@ -19,22 +19,19 @@ export default function TournamentVisual({
 							{round.games.map((game, i) => {
 								const winnerDeclared = game.winner;
 								return(
-									<li key={i} className="game-wrapper">
-										{!winnerDeclared ? (
-											<div key={i} className="players">
-												{game.players.map((player, i) =>
-													<p key={i}> {player.name} chose {player.choice ?? 'nothing yet'}</p>
-												)}
-											</div>
-										) : (
-											<div>
-												<p>{game.winner} won!</p>
-											</div>
-										)}
-									</li>
+									<Col width={6} key={i} className="game-wrapper">
+										<Row className="players">
+											{game.players.map((player, i) =>
+												<Col width={6} key={i} className="player">
+													<img src={player.photoUrl} />
+													<span className="name">{player.name}</span>
+												</Col>
+											)}
+										</Row>
+									</Col>
 								);
 							})}
-						</ul>
+						</Row>
 					</div>
 				);
 			})}
@@ -44,21 +41,28 @@ export default function TournamentVisual({
 
 
 const TournamentGrid = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+
 	.round-wrapper{
-		padding: 15px 25px;
-		border: solid 1px black;
-		display: flex;
+		border: 1px dotted red;
 		.games{
-			display: flex;
-			column-gap: 25px;
+
 			.game-wrapper{
-				border: solid 1px black;
-				padding: 10px;
+				border: 1px dotted blue;
 				.players{
-					display: flex;
+					.player {
+						border: 1px dotted pink;
+						display: flex;
+						align-items: center;
+						flex-direction: column;
+						img {
+							margin-bottom: 20px;
+						}
+						.name {
+							display: block;
+							width: 100%;
+							text-align: center;
+						}
+					}
 				}
 			}
 		}
