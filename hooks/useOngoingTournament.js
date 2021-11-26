@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { collection, doc, onSnapshot, setDoc, query, where, limit } from 'firebase/firestore'
+import { collection, doc, onSnapshot, orderBy, query, where, limit } from 'firebase/firestore'
 import { firestore } from '~/firebase'
 
 export default function useOngoingTournament() {
@@ -14,7 +14,7 @@ export default function useOngoingTournament() {
 
         const q = query(tournamentsRef,
                         where('ongoing', '==', true),
-                        /*orderBy("population"),*/
+                        orderBy('created'),
                         limit(1)
                        )
 
