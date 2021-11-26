@@ -61,3 +61,5 @@ export const Selector: React.FC<SelectorProps> = ({ ...props }) => {
     </div>
   );
 };
+
+export default Selector;
