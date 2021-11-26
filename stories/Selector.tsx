@@ -35,6 +35,7 @@ const SelectorButton = ({ icon, onClick, isSelected }) => {
       onClick={handleClick}
     >
       <Image
+	  	priority
         src={icons[icon]}
         layout='responsive'
         width={1}
