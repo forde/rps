@@ -7,4 +7,5 @@ export const TournamentContext = createContext({
     startTournament: () => null,
     game: null,
     canChoose: false,
+    choose: () => null,
 })

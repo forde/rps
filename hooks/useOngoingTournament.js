@@ -101,10 +101,21 @@ export default function useOngoingTournament({ user } = {}) {
         await addDoc(collection(firestore, 'tournaments'), data)
     }
 
+    const choose = async (choice) => {
+        // choice can be R | P | S
+        await setDoc(doc(firestore, 'tournaments', tournament.id), {
+            ...tournament,
+            rounds: [
+                ...tournament.rounds
+            ]
+        })
+    }
+
     return {
         tournament,
         startTournament,
         game,
         canChoose,
+        choose,
     }
 }
