@@ -7,4 +7,5 @@ export type ThemeVariantType = {
   warning: string;
   info: string;
   danger: string;
+  none: string;
 };

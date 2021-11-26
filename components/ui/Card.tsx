@@ -22,18 +22,20 @@ export const Card: FC<CardProps> = ({
     warning: "bg-yellow-300",
     info: "bg-blue-300",
     danger: "bg-red-200",
+    none: "",
   };
   const borderVariant: ThemeVariantType = {
     success: "border-green-400",
     warning: "border-yellow-400",
     info: "border-blue-400",
     danger: "border-red-300",
+    none: "border-none",
   };
 
   return (
     <div
       className={toClassString([
-        "flex flex-col items-center border rounded-lg p-4",
+        "border-2 rounded-lg p-4",
         bgVariant[theme],
         borderVariant[theme],
         className,
