@@ -10,7 +10,7 @@ function App({ Component, pageProps }) {
 
     const userData = useUserData()
 
-    const ongoingTournamentData = useOngoingTournament()
+    const ongoingTournamentData = useOngoingTournament({ user: userData.user })
 
     return (
         <>

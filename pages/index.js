@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import Image from "next/image";
 import Auth from "~/components/Auth";
-import Card from "~/components/ui/Card";
 import Illustration from "../public/rockz-desktop.jpeg";
 
 import useOngoingTournament from "~/hooks/useOngoingTournament";
@@ -12,10 +11,9 @@ import { UserContext } from "~/context";
 import { toClassString } from "utils/formater";
 
 export default function Home() {
-  /* const { tournament } = useOngoingTournament(); */ // get ongoing tournament
+  const { tournament } = useOngoingTournament(); // get ongoing tournament
   const activeUsers = useCurrentlyActiveUsers();
   const { user, displayName, photoURL } = useContext(UserContext);
-  let tournament = false;
 
   const textVariant = (name) => (name === displayName ? "font-semibold" : "");
 

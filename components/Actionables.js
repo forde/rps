@@ -1,11 +1,14 @@
-import { UserContext } from "context";
+import { UserContext, TournamentContext } from "context";
 import { useContext } from "react";
 import { changeUserDoc } from "~/firebase";
 
 import { toClassString } from "utils/formater";
 
 export default function Actionables() {
+
   const { user } = useContext(UserContext);
+
+  const { startTournament } = useContext(TournamentContext);
 
   const handleSetActive = () => {
     if (!user) return;
@@ -18,7 +21,7 @@ export default function Actionables() {
   };
 
   const handleStartSession = () => {
-    alert("Start session");
+    startTournament();
   };
 
   const buttonStyle =
