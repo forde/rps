@@ -1,6 +1,9 @@
+import { UserContext } from 'context'
+import { useContext } from 'react'
 import { changeUserDoc } from '~/firebase'
 
 export default function Actionables(){
+	const { user } = useContext(UserContext);
 
 	const handleSetActive = () => {
 		if (!user) return;
