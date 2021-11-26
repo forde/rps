@@ -54,7 +54,6 @@ export async function getAllUsers() {
     const snapshot = await getDocs(collection(firestore, 'users'))
     let users = []
     snapshot.forEach(doc => users.push({ id: doc.id, ...doc.data() }))
-    console.log('users', users);
     return users
 }
 
@@ -62,5 +61,5 @@ export async function changeUserDoc(uid, payload){
 	const usersRef = collection(firestore, 'users');
 	const userDoc = doc(usersRef, uid);
 
-	setDoc(userDoc, payload, { merge: true });		
+	setDoc(userDoc, payload, { merge: true });
 }

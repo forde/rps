@@ -5,7 +5,7 @@ import Actionables from '~/components/Actionables'
 export default function Home () {
 
     const { tournament } = useOngoingTournament() // get ongoing tournament
-
+    console.log('tournament', tournament);
     return (
         <>
             <Auth/>
