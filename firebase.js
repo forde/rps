@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import { getFirestore, collection, doc, onSnapshot, setDoc, getDocs } from 'firebase/firestore'
+import { getFirestore, collection, doc, onSnapshot, setDoc, getDocs, query, where } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
