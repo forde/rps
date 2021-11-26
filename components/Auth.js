@@ -19,13 +19,14 @@ export default function Auth () {
     const signOut = async () => {
         await auth.signOut()
     }
-	if(!user) return null;
     return (
         <Wrapper>
-			<div>
-				<img src={user?.photoURL} />
-				<h1>{displayName}</h1>
-			</div>
+			{user &&
+				<div>
+					<img src={user?.photoURL} />
+					<h1>{displayName}</h1>
+				</div>
+			}
             {!user ?
                 <button className="clickable" onClick={signIn} >Sign in</button>
                 :
