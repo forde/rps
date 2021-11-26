@@ -11,25 +11,28 @@ export default function TournamentVisual({
 						key={i}
 						className="round-wrapper"
 					>
-						<h2>Round: {i+1}</h2>
 						<ul
-							className={`${
+							className={`games ${
 								round.ongoing ? 'in-progress' : 'round-completed'
 							}`}
 						>
 							{round.games.map((game, i) => {
 								const winnerDeclared = game.winner;
-								return !winnerDeclared ? (
+								return(
 									<li key={i} className="game-wrapper">
-										{game.players.map((player, i) =>
-											<p key={i}> {player.name} chose {player.choice ?? 'nothing yet'}</p>
+										{!winnerDeclared ? (
+											<div key={i} className="players">
+												{game.players.map((player, i) =>
+													<p key={i}> {player.name} chose {player.choice ?? 'nothing yet'}</p>
+												)}
+											</div>
+										) : (
+											<div>
+												<p>{game.winner} won!</p>
+											</div>
 										)}
 									</li>
-								) : (
-									<li>
-										<p>{game.winner} won!</p>
-									</li>
-								)
+								);
 							})}
 						</ul>
 					</div>
@@ -48,6 +51,16 @@ const TournamentGrid = styled.div`
 		padding: 15px 25px;
 		border: solid 1px black;
 		display: flex;
-		flex-direction: column;
+		.games{
+			display: flex;
+			column-gap: 25px;
+			.game-wrapper{
+				border: solid 1px black;
+				padding: 10px;
+				.players{
+					display: flex;
+				}
+			}
+		}
 	}
 `;
