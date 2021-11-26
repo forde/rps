@@ -50,12 +50,11 @@ export const Selector: React.FC<SelectorProps> = ({ ...props }) => {
 
   return (
     <div className={toClassString(["bg-green-200 rounded-md p-6"])}>
-      {selectors.map((selector, idx) => {
+      {selectors.map((selector) => {
         return (
           <SelectorButton
             key={selector}
             icon={selector}
-            idx={idx}
             onClick={() => setIsSelected(true)}
             isSelected={isSelected}
           />
