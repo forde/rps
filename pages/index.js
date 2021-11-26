@@ -5,7 +5,6 @@ import Actionables from '~/components/Actionables'
 import useCurrentlyActiveUsers from '~/hooks/useCurrentlyActiveUsers';
 
 export default function Home () {
-	// console.log('active usersssss', activeUsers());
     const { tournament } = useOngoingTournament() // get ongoing tournament
 	const activeUsers = useCurrentlyActiveUsers();
     return (
