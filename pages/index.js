@@ -8,9 +8,15 @@ import useCurrentlyActiveUsers from "~/hooks/useCurrentlyActiveUsers";
 import TournamentVisual from '~/components/TournamentVisual';
 
 export default function Home() {
-	const { tournament, game, canChoose } = useContext(TournamentContext);
-	const activeUsers = useCurrentlyActiveUsers();
-	const tournamentStarted = tournament?.ongoing;
+
+	const { tournament, game, canChoose } = useContext(TournamentContext)
+
+	const activeUsers = useCurrentlyActiveUsers()
+
+	const tournamentStarted = tournament?.ongoing
+
+	console.log('tournament', tournament, 'game', game);
+
 	return (
 		<section>
 			{!tournamentStarted &&

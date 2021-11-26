@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { collection, doc, addDoc, onSnapshot, orderBy, getDocs, setDoc, serverTimestamp, query, where, limit } from 'firebase/firestore'
 import { firestore, getAllUsers } from '~/firebase'
+import { nanoid } from 'nanoid'
 
 export default function useOngoingTournament({ user } = {}) {
 
     const [ tournament, setTournament ] = useState(null)
-    const [ game, setGame ] = useState(null)
+    const [ activeGame, setActiveGame ] = useState(null)
     const [ canChoose, setCanChoose ] = useState(false)
 
     useEffect(() => {
@@ -31,15 +32,15 @@ export default function useOngoingTournament({ user } = {}) {
 
         // set ongoing game current user can participate in
         const latestRound = last(tournament.rounds)
-        let _usersGame = null
+        let _activeGame = null
         if(latestRound && latestRound.ongoing && latestRound.games) {
-            _usersGame = latestRound.games.filter(game => game.players.map(p => p.id).includes(user.uid))[0]
-            setGame(_usersGame || null)
+            _activeGame = latestRound.games.filter(game => game.players.map(p => p.id).includes(user.uid))[0]
+            setActiveGame(_activeGame || null)
         }
 
         // set canChoose flag for the ongoing game
-        if(_usersGame) {
-            const [ first, second ] = _usersGame.players
+        if(_activeGame) {
+            const [ first, second ] = _activeGame.players
             // if user is first -  can choose
             if((first.id === user.uid) && (first.choice === null)) setCanChoose(true)
             // is user is second - can choose only if first user made chis choice
@@ -78,12 +79,15 @@ export default function useOngoingTournament({ user } = {}) {
             .map(u => ({ id: u.id, name: u.displayName, photoUrl: u.photoUrl }))
 
         // format games array
-        const games = pair(participants, { id: 'bot', name: 'Bot', photoUrl: 'https://assets.wordstream.com/s3fs-public/styles/simple_image/public/images/media/images/facebook-messenger-bots-robot.jpg?e2HI5ngWraq13ZjAOec1O6C6WAw5bHyB&itok=JL3-yeqn' }).map(game => ({
+        const botAvatar = 'https://assets.wordstream.com/s3fs-public/styles/simple_image/public/images/media/images/facebook-messenger-bots-robot.jpg?e2HI5ngWraq13ZjAOec1O6C6WAw5bHyB&itok=JL3-yeqn'
+        const userAvatar = 'https://i.stack.imgur.com/gMbrL.jpg'
+        const games = pair(participants, { id: 'bot', name: 'Bot', photoUrl: botAvatar }).map(game => ({
             winner: null,
+            id: nanoid(12),
             players: game.map(player => ({
                 id: player.id,
                 name: player.name,
-                photoUrl: player.photoUrl || 'https://i.stack.imgur.com/gMbrL.jpg',
+                photoUrl: player.photoUrl || userAvatar,
                 choice: null
             }))
         }))
@@ -105,16 +109,35 @@ export default function useOngoingTournament({ user } = {}) {
         // choice can be R | P | S
         await setDoc(doc(firestore, 'tournaments', tournament.id), {
             ...tournament,
-            rounds: [
-                ...tournament.rounds
-            ]
+            rounds: tournament.rounds.map(round => {
+                if(!round.ongoing) return round
+
+                return {
+                    ...round,
+                    games: round.games.map(game => {
+                        if(game.id !== activeGame.id) return game
+
+                        return {
+                            ...game,
+                            players: game.players.map(player => {
+                                if(player.id !== user.uid) return player
+
+                                return {
+                                    ...player,
+                                    choice: choice,
+                                }
+                            })
+                        }
+                    })
+                }
+            })
         })
     }
 
     return {
         tournament,
         startTournament,
-        game,
+        game: activeGame,
         canChoose,
         choose,
     }
