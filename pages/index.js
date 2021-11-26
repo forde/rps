@@ -8,10 +8,10 @@ import useCurrentlyActiveUsers from "~/hooks/useCurrentlyActiveUsers";
 
 export default function Home() {
   // console.log('active usersssss', activeUsers());
-  const { tournament } = useContext(TournamentContext);
+  const { tournament, game } = useContext(TournamentContext);
   const activeUsers = useCurrentlyActiveUsers();
 
-  console.log('ongoing tournament', tournament);
+  console.log('ongoing tournament', tournament, 'game', game);
   return (
     <section>
       <Auth />
